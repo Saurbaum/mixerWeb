@@ -9,6 +9,8 @@
   	</head>
 	<body>
 		<script type="text/javascript">
+			var timeoutInterval = 500;
+			var sentData = "";
 			function postData(path, params) {
 				$.post("/" + path, params);
 			}
@@ -34,23 +36,33 @@
 				initSlider("#slider-vertical5", "#amount5");
 				initSlider("#slider-vertical6", "#amount6");
  			});
-			$(document).ready(function() {
-				$('#clickMe').click(function() {
-					var sliderData = $( "#amount1" ).val()+","+
-										$( "#amount2" ).val()+","+
-										$( "#amount3" ).val()+","+
-										$( "#amount4" ).val()+","+
-										$( "#amount5" ).val()+","+
-										$( "#amount6" ).val();
+
+			function submitData(force) {
+				var sliderData = $( "#amount1" ).val()+","+
+					$( "#amount2" ).val()+","+
+					$( "#amount3" ).val()+","+
+					$( "#amount4" ).val()+","+
+					$( "#amount5" ).val()+","+
+					$( "#amount6" ).val();
+				
+				if (sentData !== sliderData){
 					postData('test', sliderData);
-				});
+
+					sentData = sliderData;
+				}
+
+				setTimeout(submitData, timeoutInterval);
+			};
+
+			$(document).ready(function() {
+				submitData();
 			});
 		</script>
 		<table style="width:100%">
 			<tr>
 				<td>
 					<label for="amount1">Volume 1:</label>
-					<input type="text" id="amount1" readonly style="border:0; color:#f6931f; font-weight:bold;"/>
+					<input type="text" id="amount1" readonly style="border:0; color:#f6931f; font-weight:bold;">
 				</td>
 				<td>
 					<label for="amount2">Volume 2:</label>
@@ -94,7 +106,5 @@
 				</td>
 			</tr>
 		</table>
-		
-		Test submit data <input id="clickMe" type="button" value="clickme" />
 	</body>
 </html>
