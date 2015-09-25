@@ -2,20 +2,40 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>jQuery.post demo</title>
-		 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-		 <link rel="stylesheet" href="./mixer.css">
+		<title>mixerWeb</title>
+		<link rel="stylesheet" href="./jquery-ui.min.css">
+		<link rel="stylesheet" href="./jquery-ui.structure.min.css">
+		<link rel="stylesheet" href="./jquery-ui.theme.min.css">
+		<link rel="stylesheet" href="./mixer.css">
   		<script src="./jquery-2.1.4.min.js"></script>
 		<script src="./jquery-ui.min.js"></script>
   	</head>
 	<body>
 		<script type="text/javascript">
-			var timeoutInterval = 500;
+			var timeoutInterval = 125;
 			var sentData = "";
 			function postData(path, params) {
 				$.post("/" + path, params);
 			}
-			function initSlider(selector, value) {
+			function initSlider(id) {
+				var selector = "#slider-vertical" + id;
+				var value = "#amount" + id;
+				var buttonUpFast = "#button-up-fast" + id;
+				var buttonUp = "#button-up" + id;
+				var buttonDown = "#button-down" + id;
+				var buttonDownFast = "#button-down-fast" + id;
+				
+				function updateValue(val) {
+					if (val < 0 ) {
+						val = 0;
+					}
+					if ( val > 100) {
+						val = 100;
+					}
+
+					$( value ).val( val );
+				}
+
 			    $( selector ).slider({
 			    	orientation: "vertical",
 			    	range: "min",
@@ -23,20 +43,41 @@
 			    	max: 100,
 			    	value: 60,
 			    	slide: function( event, ui ) {
-			    		$( value ).val( ui.value );
+			    		updateValue( ui.value );
 			    	}
 			    });
 			    $( value ).val( $( selector ).slider( "value" ) );
+			    $( buttonUpFast ).click( function(){
+			    	var dataVal = $( selector ).slider( "value" ) + 10;
+			    	$( selector ).slider( "value", dataVal );
+			    	updateValue( dataVal );
+			    });
+			    $( buttonUp ).click( function(){
+			    	var dataVal = $( selector ).slider( "value" ) + 2;
+			    	$( selector ).slider( "value", dataVal );
+			    	updateValue( dataVal );
+			    });
+			    $( buttonDown ).click( function(){
+			    	var dataVal = $( selector ).slider( "value" ) - 2;
+			    	$( selector ).slider( "value", dataVal );
+			    	updateValue( dataVal );
+			    });
+			    $( buttonDownFast ).click( function(){
+			    	var dataVal = $( selector ).slider( "value" ) - 10;
+			    	$( selector ).slider( "value", dataVal );
+			    	updateValue( dataVal );
+			    });
 			};
 			
+			
 			$(function() {
-				initSlider("#slider-vertical1", "#amount1");
-				initSlider("#slider-vertical2", "#amount2");
-				initSlider("#slider-vertical3", "#amount3");
-				initSlider("#slider-vertical4", "#amount4");
-				initSlider("#slider-vertical5", "#amount5");
-				initSlider("#slider-vertical6", "#amount6");
-				initSlider("#slider-vertical7", "#amount7");
+				initSlider(1);
+				initSlider(2);
+				initSlider(3);
+				initSlider(4);
+				initSlider(5);
+				initSlider(6);
+				initSlider(7);
  			});
 
 			function submitData(force) {
@@ -120,6 +161,64 @@
 				</td>
 				<td>
 					<div class="volume-slider" id="slider-vertical7" style="height:200px;"></div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="volume-button-holder">
+						<p><button class="volume-up-fast" id="button-up-fast1"><img src="./images/upFast.png"></button></p>
+						<p><button class="volume-up" id="button-up1"><img src="./images/upSlow.png"></button></p>
+						<p><button class="volume-down" id="button-down1"><img src="./images/downSlow.png"></button></p>
+						<p><button class="volume-down-fast" id="button-down-fast1"><img src="./images/downFast.png"></button></p>
+					</div>
+				</td>
+				<td>
+					<div class="volume-button-holder">
+						<p><button class="volume-up-fast" id="button-up-fast2"><img src="./images/upFast.png"></button></p>
+						<p><button class="volume-up" id="button-up2"><img src="./images/upSlow.png"></button></p>
+						<p><button class="volume-down" id="button-down2"><img src="./images/downSlow.png"></button></p>
+						<p><button class="volume-down-fast" id="button-down-fast2"><img src="./images/downFast.png"></button></p>
+					</div>
+				</td>
+				<td>
+					<div class="volume-button-holder">
+						<p><button class="volume-up-fast" id="button-up-fast3"><img src="./images/upFast.png"></button></p>
+						<p><button class="volume-up" id="button-up3"><img src="./images/upSlow.png"></button></p>
+						<p><button class="volume-down" id="button-down3"><img src="./images/downSlow.png"></button></p>
+						<p><button class="volume-down-fast" id="button-down-fast3"><img src="./images/downFast.png"></button></p>					
+					</div>
+				</td>
+				<td>
+					<div class="volume-button-holder">
+						<p><button class="volume-up-fast" id="button-up-fast4"><img src="./images/upFast.png"></button></p>
+						<p><button class="volume-up" id="button-up4"><img src="./images/upSlow.png"></button></p>
+						<p><button class="volume-down" id="button-down4"><img src="./images/downSlow.png"></button></p>
+						<p><button class="volume-down-fast" id="button-down-fast4"><img src="./images/downFast.png"></button></p>
+					</div>
+				</td>
+				<td>
+					<div class="volume-button-holder">
+						<p><button class="volume-up-fast" id="button-up-fast5"><img src="./images/upFast.png"></button></p>
+						<p><button class="volume-up" id="button-up5"><img src="./images/upSlow.png"></button></p>
+						<p><button class="volume-down" id="button-down5"><img src="./images/downSlow.png"></button></p>
+						<p><button class="volume-down-fast" id="button-down-fast5"><img src="./images/downFast.png"></button></p>
+					</div>
+				</td>
+				<td>
+					<div class="volume-button-holder">
+						<p><button class="volume-up-fast" id="button-up-fast6"><img src="./images/upFast.png"></button></p>
+						<p><button class="volume-up" id="button-up6"><img src="./images/upSlow.png"></button></p>
+						<p><button class="volume-down" id="button-down6"><img src="./images/downSlow.png"></button></p>
+						<p><button class="volume-down-fast" id="button-down-fast6"><img src="./images/downFast.png"></button></p>
+					</div>
+				</td>
+				<td>
+					<div class="volume-button-holder">
+						<p><button class="volume-up-fast" id="button-up-fast7"><img src="./images/upFast.png"></button></p>
+						<p><button class="volume-up" id="button-up7"><img src="./images/upSlow.png"></button></p>
+						<p><button class="volume-down" id="button-down7"><img src="./images/downSlow.png"></button></p>
+						<p><button class="volume-down-fast" id="button-down-fast7"><img src="./images/downFast.png"></button></p>
+					</div>
 				</td>
 			</tr>
 		</table>
