@@ -17,6 +17,59 @@
 			function postData(path, params) {
 				$.post("/" + path, params);
 			}
+			function setupPlayback() {
+				$( "#previous" ).button({
+			      text: false,
+			      icons: {
+			        primary: "ui-icon-seek-start"
+			      }
+			    });
+			    $( "#play" ).button({
+			      text: false,
+			      icons: {
+			        primary: "ui-icon-play"
+			      }
+			    })
+			    .click(function() {
+			      var options;
+			      if ( $( this ).text() === "play" ) {
+			        options = {
+			          label: "pause",
+			          icons: {
+			            primary: "ui-icon-pause"
+			          }
+			        };
+			      } else {
+			        options = {
+			          label: "play",
+			          icons: {
+			            primary: "ui-icon-play"
+			          }
+			        };
+			      }
+			      $( this ).button( "option", options );
+			    });
+			    $( "#stop" ).button({
+			      text: false,
+			      icons: {
+			        primary: "ui-icon-stop"
+			      }
+			    })
+			    .click(function() {
+			      $( "#play" ).button( "option", {
+			        label: "play",
+			        icons: {
+			          primary: "ui-icon-play"
+			        }
+			      });
+			    });
+			    $( "#next" ).button({
+			      text: false,
+			      icons: {
+			        primary: "ui-icon-seek-end"
+			      }
+			    });
+			}
 			function initSlider(id) {
 				var selector = "#slider-vertical" + id;
 				var value = "#amount" + id;
@@ -48,12 +101,22 @@
 			    	}
 			    });
 			    $( value ).val( $( selector ).slider( "value" ) );
-			    $( buttonUpFast ).click( function(){
+			    $( buttonUpFast ).button({
+			    	text: false,
+			    	icons: {
+			    		primary: "up-fast"
+			    	}
+			    }).click( function(){
 			    	var dataVal = $( selector ).slider( "value" ) + 10;
 			    	$( selector ).slider( "value", dataVal );
 			    	updateValue( dataVal );
 			    });
-			    $( buttonUp ).click( function(){
+			    $( buttonUp ).button({
+			    	text: false,
+			    	icons: {
+			    		primary: "up-slow"
+			    	}
+			    }).click( function(){
 			    	var dataVal = $( selector ).slider( "value" ) + 2;
 			    	$( selector ).slider( "value", dataVal );
 			    	updateValue( dataVal );
@@ -68,7 +131,12 @@
 			    	$( selector ).slider( "value", dataVal );
 			    	updateValue( dataVal );
 			    });
-			    $( buttonOff ).click( function (){
+			    $( buttonOff ).button({
+			    	text: false,
+					icons: {
+			        	primary: "mute"
+			     	}
+			    }).click( function (){
 					$( selector ).slider( "value", 0 );
 			    	updateValue( 0 );
 			    });
@@ -80,6 +148,7 @@
 					initSlider(i);
 				};
 
+				setupPlayback();
  			});
 
 			function submitData(force) {
@@ -99,6 +168,7 @@
 
 				setTimeout(submitData, timeoutInterval);
 			};
+
 
 			$(document).ready(function() {
 				submitData();
@@ -168,68 +238,74 @@
 			<tr>
 				<td>
 					<div class="volume-button-holder">
-						<p><button class="volume-up-fast" id="button-up-fast1"><img src="./images/upFast.png"></button></p>
-						<p><button class="volume-up" id="button-up1"><img src="./images/upSlow.png"></button></p>
+						<p><button id="button-up-fast1">more up</button></p>
+						<p><button id="button-up1">up</button></p>
 						<p><button class="volume-down" id="button-down1"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast1"><img src="./images/downFast.png"></button></p>
-						<p><button class="volume-off" id="button-off1"><img src="./images/zero.png"></button></p>
+						<p><button id="button-off1">mute</button></p>
 					</div>
 				</td>
 				<td>
 					<div class="volume-button-holder">
-						<p><button class="volume-up-fast" id="button-up-fast2"><img src="./images/upFast.png"></button></p>
-						<p><button class="volume-up" id="button-up2"><img src="./images/upSlow.png"></button></p>
+						<p><button id="button-up-fast2">more up</button></p>
+						<p><button id="button-up2">up</button></p>
 						<p><button class="volume-down" id="button-down2"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast2"><img src="./images/downFast.png"></button></p>
-						<p><button class="volume-off" id="button-off2"><img src="./images/zero.png"></button></p>
+						<p><button id="button-off2">mute</button></p>
 					</div>
 				</td>
 				<td>
 					<div class="volume-button-holder">
-						<p><button class="volume-up-fast" id="button-up-fast3"><img src="./images/upFast.png"></button></p>
-						<p><button class="volume-up" id="button-up3"><img src="./images/upSlow.png"></button></p>
+						<p><button id="button-up-fast3">more up</button></p>
+						<p><button id="button-up3">up</button></p>
 						<p><button class="volume-down" id="button-down3"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast3"><img src="./images/downFast.png"></button></p>					
-						<p><button class="volume-off" id="button-off3"><img src="./images/zero.png"></button></p>
+						<p><button id="button-off3">mute</button></p>
 					</div>
 				</td>
 				<td>
 					<div class="volume-button-holder">
-						<p><button class="volume-up-fast" id="button-up-fast4"><img src="./images/upFast.png"></button></p>
-						<p><button class="volume-up" id="button-up4"><img src="./images/upSlow.png"></button></p>
+						<p><button id="button-up-fast4">more up</button></p>
+						<p><button id="button-up4">up</button></p>
 						<p><button class="volume-down" id="button-down4"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast4"><img src="./images/downFast.png"></button></p>
-						<p><button class="volume-off" id="button-off4"><img src="./images/zero.png"></button></p>
+						<p><button id="button-off4">mute</button></p>
 					</div>
 				</td>
 				<td>
 					<div class="volume-button-holder">
-						<p><button class="volume-up-fast" id="button-up-fast5"><img src="./images/upFast.png"></button></p>
-						<p><button class="volume-up" id="button-up5"><img src="./images/upSlow.png"></button></p>
+						<p><button id="button-up-fast5">more up</button></p>
+						<p><button id="button-up5">up</button></p>
 						<p><button class="volume-down" id="button-down5"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast5"><img src="./images/downFast.png"></button></p>
-						<p><button class="volume-off" id="button-off5"><img src="./images/zero.png"></button></p>
+						<p><button id="button-off5">mute</button></p>
 					</div>
 				</td>
 				<td>
 					<div class="volume-button-holder">
-						<p><button class="volume-up-fast" id="button-up-fast6"><img src="./images/upFast.png"></button></p>
-						<p><button class="volume-up" id="button-up6"><img src="./images/upSlow.png"></button></p>
+						<p><button id="button-up-fast6">more up</button></p>
+						<p><button id="button-up6">up</button></p>
 						<p><button class="volume-down" id="button-down6"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast6"><img src="./images/downFast.png"></button></p>
-						<p><button class="volume-off" id="button-off6"><img src="./images/zero.png"></button></p>
+						<p><button id="button-off6">mute</button></p>
 					</div>
 				</td>
 				<td>
 					<div class="volume-button-holder">
-						<p><button class="volume-up-fast" id="button-up-fast7"><img src="./images/upFast.png"></button></p>
-						<p><button class="volume-up" id="button-up7"><img src="./images/upSlow.png"></button></p>
+						<p><button id="button-up-fast7">more up</button></p>
+						<p><button id="button-up7">up</button></p>
 						<p><button class="volume-down" id="button-down7"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast7"><img src="./images/downFast.png"></button></p>
-						<p><button class="volume-off" id="button-off7"><img src="./images/zero.png"></button></p>
+						<p><button id="button-off7">mute</button></p>
 					</div>
 				</td>
 			</tr>
 		</table>
+		<div id="toolbar" class="ui-widget-header ui-corner-all">
+			<button id="previous">previous</button>
+			<button id="play">play</button>
+			<button id="stop">stop</button>
+			<button id="next">next</button>
+		</div>
 	</body>
 </html>

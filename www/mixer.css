@@ -38,3 +38,35 @@ body {
 	display: table;
 	margin: 0 auto;
 }
+
+p .ui-button .ui-icon{
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    margin-top: -12px;
+    margin-left: -12px;
+}
+
+.ui-button .ui-icon.mute {
+    background-image: url(./images/zero.png);
+}
+
+.ui-button.ui-state-active .ui-icon.mute {
+    background-image: url(./images/zero_pressed.png);
+}
+
+.ui-button .ui-icon.up-slow {
+    background-image: url(./images/upSlow.png);
+}
+
+.ui-button.ui-state-active .ui-icon.up-slow {
+    background-image: url(./images/upSlow_pressed.png);
+}
+.ui-button .ui-icon.up-fast {
+    background-image: url(./images/upFast.png);
+}
+
+.ui-button.ui-state-active .ui-icon.up-fast {
+    background-image: url(./images/upFast_pressed.png);
+}
