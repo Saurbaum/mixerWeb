@@ -71,13 +71,10 @@
 			
 			
 			$(function() {
-				initSlider(1);
-				initSlider(2);
-				initSlider(3);
-				initSlider(4);
-				initSlider(5);
-				initSlider(6);
-				initSlider(7);
+				for (var i = 1; i < 8; ++i) {
+					initSlider(i);
+				};
+
  			});
 
 			function submitData(force) {
