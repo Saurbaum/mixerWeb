@@ -23,6 +23,8 @@
 			      icons: {
 			        primary: "ui-icon-seek-start"
 			      }
+			    }).click(function() {
+			    	postData("previous");
 			    });
 			    $( "#play" ).button({
 			      text: false,
@@ -33,6 +35,7 @@
 			    .click(function() {
 			      var options;
 			      if ( $( this ).text() === "play" ) {
+			      	postData("play");
 			        options = {
 			          label: "pause",
 			          icons: {
@@ -40,6 +43,7 @@
 			          }
 			        };
 			      } else {
+			      	postData("pause");
 			        options = {
 			          label: "play",
 			          icons: {
@@ -56,18 +60,21 @@
 			      }
 			    })
 			    .click(function() {
-			      $( "#play" ).button( "option", {
-			        label: "play",
-			        icons: {
-			          primary: "ui-icon-play"
-			        }
-			      });
+			    	postData("stop");
+				    $( "#play" ).button( "option", {
+				    	label: "play",
+						icons: {
+				        	primary: "ui-icon-play"
+				        }
+				    });
 			    });
 			    $( "#next" ).button({
 			      text: false,
 			      icons: {
 			        primary: "ui-icon-seek-end"
 			      }
+			    }).click(function() {
+			    	postData("next");
 			    });
 			}
 			function initSlider(id) {
@@ -121,12 +128,22 @@
 			    	$( selector ).slider( "value", dataVal );
 			    	updateValue( dataVal );
 			    });
-			    $( buttonDown ).click( function(){
+			    $( buttonDown ).button({
+			    	text: false,
+			    	icons: {
+			    		primary: "down-slow"
+			    	}
+			    }).click( function(){
 			    	var dataVal = $( selector ).slider( "value" ) - 2;
 			    	$( selector ).slider( "value", dataVal );
 			    	updateValue( dataVal );
 			    });
-			    $( buttonDownFast ).click( function(){
+			    $( buttonDownFast ).button({
+			    	text: false,
+			    	icons: {
+			    		primary: "down-fast"
+			    	}
+			    }).click( function(){
 			    	var dataVal = $( selector ).slider( "value" ) - 10;
 			    	$( selector ).slider( "value", dataVal );
 			    	updateValue( dataVal );
@@ -240,8 +257,8 @@
 					<div class="volume-button-holder">
 						<p><button id="button-up-fast1">more up</button></p>
 						<p><button id="button-up1">up</button></p>
-						<p><button class="volume-down" id="button-down1"><img src="./images/downSlow.png"></button></p>
-						<p><button class="volume-down-fast" id="button-down-fast1"><img src="./images/downFast.png"></button></p>
+						<p><button id="button-down1">down</button></p>
+						<p><button id="button-down-fast1">more down</button></p>
 						<p><button id="button-off1">mute</button></p>
 					</div>
 				</td>
@@ -249,8 +266,8 @@
 					<div class="volume-button-holder">
 						<p><button id="button-up-fast2">more up</button></p>
 						<p><button id="button-up2">up</button></p>
-						<p><button class="volume-down" id="button-down2"><img src="./images/downSlow.png"></button></p>
-						<p><button class="volume-down-fast" id="button-down-fast2"><img src="./images/downFast.png"></button></p>
+						<p><button id="button-down2">down</button></p>
+						<p><button id="button-down-fast2">more down</button></p>
 						<p><button id="button-off2">mute</button></p>
 					</div>
 				</td>
@@ -258,8 +275,8 @@
 					<div class="volume-button-holder">
 						<p><button id="button-up-fast3">more up</button></p>
 						<p><button id="button-up3">up</button></p>
-						<p><button class="volume-down" id="button-down3"><img src="./images/downSlow.png"></button></p>
-						<p><button class="volume-down-fast" id="button-down-fast3"><img src="./images/downFast.png"></button></p>					
+						<p><button id="button-down3">down</button></p>
+						<p><button id="button-down-fast3">more down</button></p>					
 						<p><button id="button-off3">mute</button></p>
 					</div>
 				</td>
@@ -267,8 +284,8 @@
 					<div class="volume-button-holder">
 						<p><button id="button-up-fast4">more up</button></p>
 						<p><button id="button-up4">up</button></p>
-						<p><button class="volume-down" id="button-down4"><img src="./images/downSlow.png"></button></p>
-						<p><button class="volume-down-fast" id="button-down-fast4"><img src="./images/downFast.png"></button></p>
+						<p><button id="button-down4">down</button></p>
+						<p><button id="button-down-fast4">more down</button></p>
 						<p><button id="button-off4">mute</button></p>
 					</div>
 				</td>
@@ -276,8 +293,8 @@
 					<div class="volume-button-holder">
 						<p><button id="button-up-fast5">more up</button></p>
 						<p><button id="button-up5">up</button></p>
-						<p><button class="volume-down" id="button-down5"><img src="./images/downSlow.png"></button></p>
-						<p><button class="volume-down-fast" id="button-down-fast5"><img src="./images/downFast.png"></button></p>
+						<p><button id="button-down5">down</button></p>
+						<p><button id="button-down-fast5">more down</button></p>
 						<p><button id="button-off5">mute</button></p>
 					</div>
 				</td>
@@ -285,8 +302,8 @@
 					<div class="volume-button-holder">
 						<p><button id="button-up-fast6">more up</button></p>
 						<p><button id="button-up6">up</button></p>
-						<p><button class="volume-down" id="button-down6"><img src="./images/downSlow.png"></button></p>
-						<p><button class="volume-down-fast" id="button-down-fast6"><img src="./images/downFast.png"></button></p>
+						<p><button id="button-down6">down</button></p>
+						<p><button id="button-down-fast6">more down</button></p>
 						<p><button id="button-off6">mute</button></p>
 					</div>
 				</td>
@@ -294,8 +311,8 @@
 					<div class="volume-button-holder">
 						<p><button id="button-up-fast7">more up</button></p>
 						<p><button id="button-up7">up</button></p>
-						<p><button class="volume-down" id="button-down7"><img src="./images/downSlow.png"></button></p>
-						<p><button class="volume-down-fast" id="button-down-fast7"><img src="./images/downFast.png"></button></p>
+						<p><button id="button-down7">down</button></p>
+						<p><button id="button-down-fast7">more down</button></p>
 						<p><button id="button-off7">mute</button></p>
 					</div>
 				</td>

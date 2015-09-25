@@ -70,3 +70,18 @@ p .ui-button .ui-icon{
 .ui-button.ui-state-active .ui-icon.up-fast {
     background-image: url(./images/upFast_pressed.png);
 }
+
+.ui-button .ui-icon.down-slow {
+    background-image: url(./images/downSlow.png);
+}
+
+.ui-button.ui-state-active .ui-icon.down-slow {
+    background-image: url(./images/downSlow_pressed.png);
+}
+.ui-button .ui-icon.down-fast {
+    background-image: url(./images/downFast.png);
+}
+
+.ui-button.ui-state-active .ui-icon.down-fast {
+    background-image: url(./images/downFast_pressed.png);
+}
