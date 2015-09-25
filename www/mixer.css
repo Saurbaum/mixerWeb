@@ -1,3 +1,7 @@
+body {
+	background-color: #DDDDDD
+}
+
 .volume-slider {
 	margin: 0 auto;
 }
@@ -17,9 +21,19 @@
 .volume-ammount {
 	width: 50%;
 	border:0;
-	color:#f6931f;
+	color:#00AAFF;
 	font-weight:bold;
 	font-size: 14;
 	float: right;
 	padding-left: 5px;
+	background-color: #DDDDDD
+}
+
+.volume-button-holder {
+	width: 100%;
+}
+
+.volume-button-holder p {
+	display: table;
+	margin: 0 auto;
 }
