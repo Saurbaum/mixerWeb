@@ -24,6 +24,7 @@
 				var buttonUp = "#button-up" + id;
 				var buttonDown = "#button-down" + id;
 				var buttonDownFast = "#button-down-fast" + id;
+				var buttonOff = "#button-off" + id;
 				
 				function updateValue(val) {
 					if (val < 0 ) {
@@ -66,6 +67,10 @@
 			    	var dataVal = $( selector ).slider( "value" ) - 10;
 			    	$( selector ).slider( "value", dataVal );
 			    	updateValue( dataVal );
+			    });
+			    $( buttonOff ).click( function (){
+					$( selector ).slider( "value", 0 );
+			    	updateValue( 0 );
 			    });
 			};
 			
@@ -167,6 +172,7 @@
 						<p><button class="volume-up" id="button-up1"><img src="./images/upSlow.png"></button></p>
 						<p><button class="volume-down" id="button-down1"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast1"><img src="./images/downFast.png"></button></p>
+						<p><button class="volume-off" id="button-off1"><img src="./images/zero.png"></button></p>
 					</div>
 				</td>
 				<td>
@@ -175,6 +181,7 @@
 						<p><button class="volume-up" id="button-up2"><img src="./images/upSlow.png"></button></p>
 						<p><button class="volume-down" id="button-down2"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast2"><img src="./images/downFast.png"></button></p>
+						<p><button class="volume-off" id="button-off2"><img src="./images/zero.png"></button></p>
 					</div>
 				</td>
 				<td>
@@ -183,6 +190,7 @@
 						<p><button class="volume-up" id="button-up3"><img src="./images/upSlow.png"></button></p>
 						<p><button class="volume-down" id="button-down3"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast3"><img src="./images/downFast.png"></button></p>					
+						<p><button class="volume-off" id="button-off3"><img src="./images/zero.png"></button></p>
 					</div>
 				</td>
 				<td>
@@ -191,6 +199,7 @@
 						<p><button class="volume-up" id="button-up4"><img src="./images/upSlow.png"></button></p>
 						<p><button class="volume-down" id="button-down4"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast4"><img src="./images/downFast.png"></button></p>
+						<p><button class="volume-off" id="button-off4"><img src="./images/zero.png"></button></p>
 					</div>
 				</td>
 				<td>
@@ -199,6 +208,7 @@
 						<p><button class="volume-up" id="button-up5"><img src="./images/upSlow.png"></button></p>
 						<p><button class="volume-down" id="button-down5"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast5"><img src="./images/downFast.png"></button></p>
+						<p><button class="volume-off" id="button-off5"><img src="./images/zero.png"></button></p>
 					</div>
 				</td>
 				<td>
@@ -207,6 +217,7 @@
 						<p><button class="volume-up" id="button-up6"><img src="./images/upSlow.png"></button></p>
 						<p><button class="volume-down" id="button-down6"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast6"><img src="./images/downFast.png"></button></p>
+						<p><button class="volume-off" id="button-off6"><img src="./images/zero.png"></button></p>
 					</div>
 				</td>
 				<td>
@@ -215,6 +226,7 @@
 						<p><button class="volume-up" id="button-up7"><img src="./images/upSlow.png"></button></p>
 						<p><button class="volume-down" id="button-down7"><img src="./images/downSlow.png"></button></p>
 						<p><button class="volume-down-fast" id="button-down-fast7"><img src="./images/downFast.png"></button></p>
+						<p><button class="volume-off" id="button-off7"><img src="./images/zero.png"></button></p>
 					</div>
 				</td>
 			</tr>

@@ -4,6 +4,7 @@ body {
 
 .volume-slider {
 	margin: 0 auto;
+	margin-bottom: 10px;
 }
 
 .volume-header {
