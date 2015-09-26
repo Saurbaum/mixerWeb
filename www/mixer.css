@@ -5,10 +5,20 @@ body {
 .volume-slider {
 	margin: 0 auto;
 	margin-bottom: 10px;
+	height:200px;
+}
+
+.volume-slider-horizontal{
+	width:200px;
 }
 
 .volume-header {
 	width:80px;
+	padding-bottom: 28px;
+}
+
+.volume-header-horizontal {
+	width:180px;
 	padding-bottom: 28px;
 }
 
@@ -27,7 +37,7 @@ body {
 	font-size: 14;
 	float: right;
 	padding-left: 5px;
-	background-color: #DDDDDD
+	background-color: transparent;
 }
 
 .volume-button-holder {
@@ -84,4 +94,10 @@ p .ui-button .ui-icon{
 
 .ui-button.ui-state-active .ui-icon.down-fast {
     background-image: url(./images/downFast_pressed.png);
+}
+
+.playback-toolbar {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	width: 400px;
 }
