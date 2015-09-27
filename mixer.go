@@ -13,12 +13,22 @@ type Track struct {
 	Id   int
 }
 
-func setVolumes(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	body, _ := ioutil.ReadAll(r.Body)
-	var bodyText = string(body)
-	fmt.Println(bodyText)
-	io.WriteString(w, bodyText)
+var mixerVolumeData = "0,0,0,0,0,0,0"
+
+func mixerVolumes(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		fmt.Println(mixerVolumeData)
+		io.WriteString(w, mixerVolumeData)
+
+	case "POST":
+		defer r.Body.Close()
+		body, _ := ioutil.ReadAll(r.Body)
+		var bodyText = string(body)
+		fmt.Println(bodyText)
+		io.WriteString(w, bodyText)
+		mixerVolumeData = bodyText
+	}
 }
 
 func play(w http.ResponseWriter, r *http.Request) {
@@ -71,7 +81,7 @@ func trackList(w http.ResponseWriter, r *http.Request) {
 func main() {
 	mux := http.NewServeMux()
 	mux.Handle("/", http.FileServer(http.Dir("www")))
-	mux.HandleFunc("/setVolumes", setVolumes)
+	mux.HandleFunc("/mixerVolumes", mixerVolumes)
 	mux.HandleFunc("/play", play)
 	mux.HandleFunc("/pause", pause)
 	mux.HandleFunc("/stop", stop)

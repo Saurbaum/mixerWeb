@@ -92,7 +92,7 @@
 			    	range: "min",
 			    	min: 0,
 			    	max: 100,
-			    	value: 60,
+			    	value: 0,
 			    	slide: function( event, ui ) {
 			    		updateValue( ui.value, "#playback" );
 			    	}
@@ -123,7 +123,7 @@
 			    	range: "min",
 			    	min: 0,
 			    	max: 100,
-			    	value: 60,
+			    	value: 0,
 			    	slide: function( event, ui ) {
 			    		updateValue( ui.value, value );
 			    	}
@@ -176,7 +176,7 @@
 			     	}
 			    }).click( function (){
 					$( selector ).slider( "value", 0 );
-			    	updateValue( 0 );
+			    	updateValue( 0, value );
 			    });
 			};
 
@@ -198,7 +198,7 @@
 					$( "#amount7" ).val();
 				
 				if (sentData !== sliderData){
-					postData('setVolumes', sliderData);
+					postData('mixerVolumes', sliderData);
 
 					sentData = sliderData;
 				}
@@ -215,7 +215,20 @@
 
 
 			$(document).ready(function() {
-				submitData();
+				$.get("/mixerVolumes", function(currentMixerData) {
+					var id = 1;
+					var readData = currentMixerData.split(",");
+					$.each(readData, function () {
+						var selector = "#slider-vertical" + id;
+						var value = "#amount" + id;
+					    $( selector ).slider( "value", this );
+			    		updateValue( this, value );
+
+					    id++;
+					});
+
+					submitData();
+				});
 			});
 		</script>
 		<table>
