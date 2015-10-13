@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 )
 
 type Track struct {
@@ -13,7 +14,10 @@ type Track struct {
 	Id   int
 }
 
+var tracks []Track
+
 var mixerVolumeData = "0,0,0,0,0,0,0"
+var currentTrack Track
 
 func mixerVolumes(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
@@ -38,6 +42,16 @@ func play(w http.ResponseWriter, r *http.Request) {
 	var bodyText = string(body)
 	fmt.Println(bodyText)
 	io.WriteString(w, bodyText)
+
+	for _, track := range tracks {
+		i, err := strconv.Atoi(bodyText)
+		if err == nil && i == track.Id {
+			currentTrack = track
+		}
+	}
+
+	fmt.Println(currentTrack.Name)
+	io.WriteString(w, currentTrack.Name)
 }
 
 func pause(w http.ResponseWriter, r *http.Request) {
@@ -50,10 +64,36 @@ func stop(w http.ResponseWriter, r *http.Request) {
 
 func previous(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("previous")
+	var newId = currentTrack.Id - 1
+	if newId < 0 {
+		newId = len(tracks) - 1
+	}
+
+	for _, track := range tracks {
+		if newId == track.Id {
+			currentTrack = track
+		}
+	}
+
+	fmt.Println(currentTrack.Name)
+	io.WriteString(w, strconv.Itoa(currentTrack.Id))
 }
 
 func next(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("next")
+	var newId = currentTrack.Id + 1
+	if newId >= len(tracks) {
+		newId = 0
+	}
+
+	for _, track := range tracks {
+		if newId == track.Id {
+			currentTrack = track
+		}
+	}
+
+	fmt.Println(currentTrack.Name)
+	io.WriteString(w, strconv.Itoa(currentTrack.Id))
 }
 
 func playbackVolume(w http.ResponseWriter, r *http.Request) {
@@ -64,13 +104,9 @@ func playbackVolume(w http.ResponseWriter, r *http.Request) {
 }
 
 func trackList(w http.ResponseWriter, r *http.Request) {
+	currentTrack = tracks[0]
 
-	var tracks []Track
-	tracks = append(tracks, Track{"Track 1", 0})
-	tracks = append(tracks, Track{"Track 2", 1})
-	tracks = append(tracks, Track{"Track 3", 2})
-	tracks = append(tracks, Track{"Track 4", 3})
-	tracks = append(tracks, Track{"Track 5", 4})
+	fmt.Println(currentTrack.Name)
 
 	b, _ := json.Marshal(tracks)
 
@@ -79,6 +115,12 @@ func trackList(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	tracks = append(tracks, Track{"Track 1", 0})
+	tracks = append(tracks, Track{"Track 2", 1})
+	tracks = append(tracks, Track{"Track 3", 2})
+	tracks = append(tracks, Track{"Track 4", 3})
+	tracks = append(tracks, Track{"Track 5", 4})
+
 	mux := http.NewServeMux()
 	mux.Handle("/", http.FileServer(http.Dir("www")))
 	mux.HandleFunc("/mixerVolumes", mixerVolumes)

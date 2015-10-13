@@ -16,8 +16,8 @@
 			var sentData = "";
 			var sentPlaybackLevel = "";
 			var tracks = [];
-			function postData(path, params) {
-				$.post("/" + path, params);
+			function postData(path, params, func) {
+				$.post("/" + path, params, func);
 			}
 			function updateValue(val, target) {
 				if (val < 0 ) {
@@ -36,7 +36,9 @@
 			        primary: "ui-icon-seek-start"
 			      }
 			    }).click(function() {
-			    	postData("previous");
+			    	postData("previous", null, function(data){
+			    		$('select').val(data);
+			    	});
 			    });
 			    $( "#play" ).button({
 			      text: false,
@@ -86,7 +88,9 @@
 			        primary: "ui-icon-seek-end"
 			      }
 			    }).click(function() {
-			    	postData("next");
+			    	postData("next", null, function(data){
+			    		$('select').val(data);
+			    	});
 			    });
 
 			    $( "#slider-playback" ).slider({
