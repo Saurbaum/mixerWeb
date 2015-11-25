@@ -9,15 +9,15 @@ import (
 	"strconv"
 )
 
-type Track struct {
+type track struct {
 	Name string
-	Id   int
+	ID   int
 }
 
-var tracks []Track
+var tracks []track
 
 var mixerVolumeData = "0,0,0,0,0,0,0"
-var currentTrack Track
+var currentTrack track
 
 func mixerVolumes(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
@@ -43,10 +43,10 @@ func play(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(bodyText)
 	io.WriteString(w, bodyText)
 
-	for _, track := range tracks {
+	for _, audioTrack := range tracks {
 		i, err := strconv.Atoi(bodyText)
-		if err == nil && i == track.Id {
-			currentTrack = track
+		if err == nil && i == audioTrack.ID {
+			currentTrack = audioTrack
 		}
 	}
 
@@ -64,36 +64,36 @@ func stop(w http.ResponseWriter, r *http.Request) {
 
 func previous(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("previous")
-	var newId = currentTrack.Id - 1
-	if newId < 0 {
-		newId = len(tracks) - 1
+	var newID = currentTrack.ID - 1
+	if newID < 0 {
+		newID = len(tracks) - 1
 	}
 
-	for _, track := range tracks {
-		if newId == track.Id {
-			currentTrack = track
+	for _, audioTrack := range tracks {
+		if newID == audioTrack.ID {
+			currentTrack = audioTrack
 		}
 	}
 
 	fmt.Println(currentTrack.Name)
-	io.WriteString(w, strconv.Itoa(currentTrack.Id))
+	io.WriteString(w, strconv.Itoa(currentTrack.ID))
 }
 
 func next(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("next")
-	var newId = currentTrack.Id + 1
-	if newId >= len(tracks) {
-		newId = 0
+	var newID = currentTrack.ID + 1
+	if newID >= len(tracks) {
+		newID = 0
 	}
 
 	for _, track := range tracks {
-		if newId == track.Id {
+		if newID == track.ID {
 			currentTrack = track
 		}
 	}
 
 	fmt.Println(currentTrack.Name)
-	io.WriteString(w, strconv.Itoa(currentTrack.Id))
+	io.WriteString(w, strconv.Itoa(currentTrack.ID))
 }
 
 func playbackVolume(w http.ResponseWriter, r *http.Request) {
@@ -115,11 +115,12 @@ func trackList(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	tracks = append(tracks, Track{"Track 1", 0})
-	tracks = append(tracks, Track{"Track 2", 1})
-	tracks = append(tracks, Track{"Track 3", 2})
-	tracks = append(tracks, Track{"Track 4", 3})
-	tracks = append(tracks, Track{"Track 5", 4})
+	tracks = append(tracks, track{"Track 1", 0})
+	tracks = append(tracks, track{"Track 2", 1})
+	tracks = append(tracks, track{"Track 3", 2})
+	tracks = append(tracks, track{"Track 4", 3})
+	tracks = append(tracks, track{"Track 5", 4})
+	tracks = append(tracks, track{"Track 6", 5})
 
 	mux := http.NewServeMux()
 	mux.Handle("/", http.FileServer(http.Dir("www")))
