@@ -94,6 +94,7 @@
 			    });
 
 			    $( "#slider-playback" ).slider({
+			    	orientation: "vertical",
 			    	range: "min",
 			    	min: 0,
 			    	max: 100,
@@ -103,6 +104,8 @@
 			    	}
 			    });
 			    $( "#playback" ).val( $( "#slider-playback" ).slider( "value" ) );
+
+				/*Add filter text box here for sanity*/
 
 			    $.get("/trackList", function(returnedTracks) {
 			    	tracks = returnedTracks;
@@ -186,7 +189,7 @@
 			};
 
 			$(function() {
-				for (var i = 1; i < 8; ++i) {
+				for (var i = 1; i < 9; ++i) {
 					initSlider(i);
 				};
 
@@ -200,7 +203,8 @@
 					$( "#amount4" ).val()+","+
 					$( "#amount5" ).val()+","+
 					$( "#amount6" ).val()+","+
-					$( "#amount7" ).val();
+					$( "#amount7" ).val()+","+
+					$( "#amount8" ).val();
 				
 				if (sentData !== sliderData){
 					postData('mixerVolumes', sliderData);
@@ -217,7 +221,6 @@
 
 				setTimeout(submitData, timeoutInterval);
 			};
-
 
 			$(document).ready(function() {
 				$.get("/mixerVolumes", function(currentMixerData) {
@@ -270,7 +273,12 @@
 				</td>
 				<td>
 					<div class="volume-header">
-						<label class="volume-label" for="amount7">Master:</label><input class="volume-ammount" type="text" id="amount7" readonly>
+						<label class="volume-label" for="amount7">Track:</label><input class="volume-ammount" type="text" id="amount7" readonly>
+					</div>
+				</td>
+				<td>
+					<div class="volume-header">
+						<label class="volume-label" for="amount8">Master:</label><input class="volume-ammount" type="text" id="amount8" readonly>
 					</div>
 				</td>
 			</tr>
@@ -295,6 +303,9 @@
 				</td>
 				<td>
 					<div class="volume-slider" id="slider-vertical7"></div>
+				</td>
+				<td>
+					<div class="volume-slider" id="slider-vertical8"></div>
 				</td>
 			</tr>
 			<tr>
@@ -361,6 +372,15 @@
 						<p><button id="button-off7">mute</button></p>
 					</div>
 				</td>
+				<td>
+					<div class="volume-button-holder">
+						<p><button id="button-up-fast8">more up</button></p>
+						<p><button id="button-up8">up</button></p>
+						<p><button id="button-down8">down</button></p>
+						<p><button id="button-down-fast8">more down</button></p>
+						<p><button id="button-off8">mute</button></p>
+					</div>
+				</td>
 			</tr>
 		</table>
 		<div id="toolbar" class="ui-widget-header ui-corner-all playback-toolbar">
@@ -370,9 +390,5 @@
 			<button id="next">next</button>
 			<select id="combobox" class="ui-widget ui-widget-content ui-state-default ui-corner-all"></select>
 		</div>
-		<div class="volume-header-horizontal">
-				<label class="volume-label" for="playback">Playback:</label><input class="volume-ammount" type="text" id="playback" readonly>
-			</div>
-		<div class="volume-slider-horizontal" id="slider-playback"></div>
 	</body>
 </html>

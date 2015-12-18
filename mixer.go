@@ -16,7 +16,8 @@ type track struct {
 
 var tracks []track
 
-var mixerVolumeData = "0,0,0,0,0,0,0"
+var mixerVolumeData = "0,0,0,0,0,0,0,0"
+var trackVolumeData = "0"
 var currentTrack track
 
 func mixerVolumes(w http.ResponseWriter, r *http.Request) {
@@ -96,13 +97,6 @@ func next(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, strconv.Itoa(currentTrack.ID))
 }
 
-func playbackVolume(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	body, _ := ioutil.ReadAll(r.Body)
-	var bodyText = string(body)
-	fmt.Println(bodyText)
-}
-
 func trackList(w http.ResponseWriter, r *http.Request) {
 	currentTrack = tracks[0]
 
@@ -115,6 +109,7 @@ func trackList(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	// Convert to load from file
 	tracks = append(tracks, track{"Track 1", 0})
 	tracks = append(tracks, track{"Track 2", 1})
 	tracks = append(tracks, track{"Track 3", 2})
@@ -130,7 +125,9 @@ func main() {
 	mux.HandleFunc("/stop", stop)
 	mux.HandleFunc("/previous", previous)
 	mux.HandleFunc("/next", next)
-	mux.HandleFunc("/playbackVolume", playbackVolume)
 	mux.HandleFunc("/trackList", trackList)
-	http.ListenAndServe(":8000", mux)
+
+	// implment this
+	//mux.HandleFunc("/filterTracks", filterTracks)
+	http.ListenAndServe(":80", mux)
 }
