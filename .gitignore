@@ -2,6 +2,8 @@
 *.o
 *.a
 *.so
+debug
+mixerWeb
 
 # Folders
 _obj
